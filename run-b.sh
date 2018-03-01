@@ -1,0 +1,2 @@
+./run.sh --fileIn=/Users/angelborroy/Desktop/Google-Hashcode/google-hashcode-2018/src/main/resources/in/b_should_be_easy.in \
+--fileOut=/Users/angelborroy/Desktop/Google-Hashcode/google-hashcode-2018/src/main/resources/out/b_should_be_easy.out
