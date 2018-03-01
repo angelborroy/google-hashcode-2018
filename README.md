@@ -18,7 +18,8 @@ Current scorings:
 Notes
 -----
 Problem statement, input & output files are available at `src/main/resources` folder.
-To run just use following scripts: `run-a.sh`, `run-b.sh`, `run-c.sh`, `run-d.sh` & `run-e.sh`
+
+To run the project, just use following scripts: `run-a.sh`, `run-b.sh`, `run-c.sh`, `run-d.sh` & `run-e.sh`
 
 Contributors
 ------------
