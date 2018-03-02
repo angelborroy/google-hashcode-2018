@@ -9,10 +9,10 @@ Just an skeleton to start to work with.
 Current scorings:
 
 * A - example - 10
-* B - should be easy - 109,903
-* C - no hurry - 8,003,243
-* D - metropolis - 1,429,422
-* E - high bonus - 2,279,050
+* B - should be easy - 175,671
+* C - no hurry - 8,016,571
+* D - metropolis - 6,994,842
+* E - high bonus - 20,828,717
 
 
 Notes
