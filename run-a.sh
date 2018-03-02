@@ -1,2 +1,2 @@
-./run.sh --fileIn=/Users/angelborroy/Desktop/Google-Hashcode/google-hashcode-2018/src/main/resources/in/a_example.in \
---fileOut=/Users/angelborroy/Desktop/Google-Hashcode/google-hashcode-2018/src/main/resources/out/a_example.out
+./run.sh --fileIn=src/main/resources/in/a_example.in \
+--fileOut=src/main/resources/out/a_example.out

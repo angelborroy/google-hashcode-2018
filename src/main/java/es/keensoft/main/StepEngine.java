@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeMap;
 import java.util.TreeSet;
@@ -126,8 +128,12 @@ public class StepEngine {
 		}
 		
 		// Order by criteria
-		entriesSortedByValues(pendingScores);
-		return new ArrayList<Integer>(pendingScores.keySet());
+		Set<Map.Entry<Integer, Integer>> orderedPendingScores = entriesSortedByValues(pendingScores);
+		List<Integer> result = new ArrayList<Integer>();
+		for (Entry<Integer, Integer> entry : orderedPendingScores) {
+			result.add(entry.getKey());
+		}
+		return result;
 		
 	}
 	
