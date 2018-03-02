@@ -18,7 +18,7 @@ public class TravelingVehicle {
 	}
 	@Override
 	public String toString() {
-		return "TravellingVehicle [time=" + time + ", ride=" + ride + "]";
+		return "TravelingVehicle [time=" + time + ", ride=" + ride + "]";
 	}
 }
 

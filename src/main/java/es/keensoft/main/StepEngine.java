@@ -29,12 +29,12 @@ public class StepEngine {
 		List<Output> output = new ArrayList<Output>();
 		
 		// Initialize traveling vehicles
-		List<TravelingVehicle> travellingVehicles = new ArrayList<TravelingVehicle>();
+		List<TravelingVehicle> travelingVehicles = new ArrayList<TravelingVehicle>();
 		for (int i = 0; i < input.getVehicles(); i++) {
 			TravelingVehicle tv = new TravelingVehicle();
 			tv.setTime(0);
 			tv.setRide(-1);
-			travellingVehicles.add(tv);
+			travelingVehicles.add(tv);
 		}
 		
 		// Initialize pending rides
@@ -48,21 +48,21 @@ public class StepEngine {
 			
 			System.out.println("Step " + i);
 			
-			nextStep(travellingVehicles, pendingRides, outputCache);
+			nextStep(travelingVehicles, pendingRides, outputCache);
 			
 			List<Integer> orderedPendingRides = getOrderedPendingRides(pendingRides, input.getRide(), i, input);
 			
 			// Start ride while any truck is available
 			for (int j = 0; j < 	orderedPendingRides.size(); j++) {
-				Integer truck = availableTruck(travellingVehicles);
+				Integer truck = availableTruck(travelingVehicles);
 				Integer ride = orderedPendingRides.get(j);
 				if (truck >= 0) {
 					TravelingVehicle tv = new TravelingVehicle();
 					tv.setTime(getDistance(input.getRide().get(ride)));
 					tv.setRide(ride);
-					travellingVehicles.set(truck, tv);
+					travelingVehicles.set(truck, tv);
 					pendingRides.set(ride, false);
-					System.out.println("Truck " + truck + " starting ride of distance " + travellingVehicles.get(truck));
+					System.out.println("Truck " + truck + " starting ride of distance " + travelingVehicles.get(truck));
 				}
 			}
 		}
@@ -101,21 +101,26 @@ public class StepEngine {
 		
 		Map<Integer, Integer> pendingScores = new TreeMap<Integer, Integer>();
 		
-		// Order by distance: the farthest the first
+		// Order by distance: the nearer the first
 		for (int i = 0; i < pendingRides.size(); i++) {
 			if (pendingRides.get(i)) {
 				Integer distance = getDistance(rides.get(i));
 				pendingScores.put(i, distance);
 			}
 		}
-		// High priority for bonus: prioritizing starting time before current step
+		// Top priority for bonus: prioritizing starting time at current step
 		for (Integer ride : pendingScores.keySet()) {
-			if (input.getRide().get(ride).getStartingTime() <= step) {
-				pendingScores.put(ride, 0);
+			if (input.getRide().get(ride).getStartingTime() == step) {
+				pendingScores.put(ride, -1);
 			} 
 		}
-		
-	    // TODO Weighting with starting time, finishing time and bonus
+		// High priority for finishing in time
+		for (Integer ride : pendingScores.keySet()) {
+			Integer distance = pendingScores.get(ride);
+			if (input.getRide().get(ride).getFinishingTime() <= (distance + step)) {
+				pendingScores.put(ride, 0);
+			}
+		}		
 		
 		return new ArrayList<Integer>(pendingScores.keySet());
 	}
@@ -132,35 +137,35 @@ public class StepEngine {
 	
 	/**
 	 * Find first available truck
-	 * @param travellingVehicles
+	 * @param travelingVehicles
 	 * @return
 	 */
-	private static Integer availableTruck(List<TravelingVehicle> travellingVehicles) {
-		for (int i = 0; i < travellingVehicles.size(); i++) {
-			if (travellingVehicles.get(i).getTime() == 0) return i;
+	private static Integer availableTruck(List<TravelingVehicle> travelingVehicles) {
+		for (int i = 0; i < travelingVehicles.size(); i++) {
+			if (travelingVehicles.get(i).getTime() == 0) return i;
 		}
 		return -1;
 	}
 	
 	/**
 	 * Update travel distances and detect trucks finishing rides
-	 * @param travellingVehicles
+	 * @param travelingVehicles
 	 * @param pendingRides
 	 * @param result
 	 */
-	private static void nextStep(List<TravelingVehicle> travellingVehicles, List<Boolean> pendingRides, Map<Integer, List<Integer>> result) {
+	private static void nextStep(List<TravelingVehicle> travelingVehicles, List<Boolean> pendingRides, Map<Integer, List<Integer>> result) {
 		
-		for (int i = 0; i < travellingVehicles.size(); i++) {
-			if (travellingVehicles.get(i).getTime() > 0) {
-			    travellingVehicles.get(i).setTime(travellingVehicles.get(i).getTime() - 1);
+		for (int i = 0; i < travelingVehicles.size(); i++) {
+			if (travelingVehicles.get(i).getTime() > 0) {
+			    travelingVehicles.get(i).setTime(travelingVehicles.get(i).getTime() - 1);
 			}
-			if (travellingVehicles.get(i).getTime() == 0 && travellingVehicles.get(i).getRide() != -1) {
+			if (travelingVehicles.get(i).getTime() == 0 && travelingVehicles.get(i).getRide() != -1) {
 				if (result.get(i) == null) {
 					result.put(i, new ArrayList<Integer>());
 				}
-				System.out.println("Vehicle " + i + " finished travel " + travellingVehicles.get(i).getRide());
-				result.get(i).add(travellingVehicles.get(i).getRide());
-				travellingVehicles.get(i).setRide(-1);
+				System.out.println("Vehicle " + i + " finished travel " + travelingVehicles.get(i).getRide());
+				result.get(i).add(travelingVehicles.get(i).getRide());
+				travelingVehicles.get(i).setRide(-1);
 			}
 		}
 		
