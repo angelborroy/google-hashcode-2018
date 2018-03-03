@@ -1,4 +1,4 @@
-package es.keensoft.main;
+package es.keensoft.main.engine;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -18,9 +18,10 @@ import es.keensoft.bean.TravelingVehicle;
 
 /**
  * Engine to control step-by-step truck movements
+ * This class was developed during the contest, probably it includes different issues
  *
  */
-public class StepEngine {
+public class ContestStepEngine {
 	
 	/**
 	 * Start steps count from 0 to steps number
