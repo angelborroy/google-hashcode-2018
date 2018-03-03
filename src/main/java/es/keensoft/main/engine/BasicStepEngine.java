@@ -70,7 +70,7 @@ public class BasicStepEngine extends StepEngineTemplate {
 		
 		// Bonus report
 		System.out.println("Starting bonus: " + startingInTime);
-		System.out.println("Completing bonus: " + startingInTime);
+		System.out.println("Completing bonus: " + deliveredInTime);
 		
 		prepareOutputFormat();
 		return output;
